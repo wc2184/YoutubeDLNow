@@ -78,7 +78,10 @@ function App() {
       <Box flex="1 0 80%">
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<div>Hello about</div>} />
+          <Route
+            path="/about"
+            element={<div>This page is useless. /home has everything.</div>}
+          />
           <Route path="/auth" element={<Auth />} />
         </Routes>
       </Box>
