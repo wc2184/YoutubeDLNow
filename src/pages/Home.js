@@ -1,11 +1,13 @@
 import {
   Box,
   Button,
+  Checkbox,
   Grid,
   Image,
   Input,
   Spacer,
   Spinner,
+  Switch,
   Table,
   TableCaption,
   TableContainer,
@@ -16,7 +18,7 @@ import {
   Tr,
   useToast,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { db } from '../index';
 import {
   collection,
@@ -41,6 +43,7 @@ const Home = () => {
   const [text, setText] = useState();
   const [user, setUser] = useState();
   const [data, setData] = useState([]);
+  const ref = useRef('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
@@ -229,14 +232,14 @@ const Home = () => {
 
   console.log(data);
 
-  const downloade = async link => {
+  const downloade = async (link, type) => {
     // THE ISSUE WAS NAMING THIS FUNCTION DOWNLOAD SOMEHOW NODEJS CALLED IT WITH RESPONDSE.download lol
     setLoading(link);
 
     console.log(typeof link, 'b4');
     // let newlink = `http://localhost:5000/download?link=` + link;
     let newlink =
-      `https://youtubedownloadin.herokuapp.com/download/video?link=` + link;
+      `https://youtubedownloadin.herokuapp.com/download/${type}?link=` + link;
     console.log(newlink, 'mid');
     const res = await fetch(newlink);
     console.log(res.headers.forEach(console.log), 'headers');
@@ -343,7 +346,13 @@ const Home = () => {
       {/* {JSON.stringify(data)} */}
       <TableContainer>
         <Table size="sm" variant="simple">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
+          <TableCaption>
+            Enjoy a self-curated intentional and mindless youtube experience.
+          </TableCaption>
+          <TableCaption>
+            Download videos to watch instead of letting the algorithm dictate
+            your life.
+          </TableCaption>
           <Thead>
             <Tr display="flex">
               <Th flex="1">Youtube entries</Th>
@@ -383,6 +392,17 @@ const Home = () => {
                     >
                       {data[0]}
                     </div>
+                    <Button
+                      onClick={() => {
+                        downloade(data[2], 'audio');
+                      }}
+                      style={{ marginTop: '7px' }}
+                      colorScheme="teal"
+                      size="xs"
+                      isLoading={loading == data[2]}
+                    >
+                      Audio Download
+                    </Button>
                   </Td>
                   <Td
                     style={{
@@ -409,7 +429,7 @@ const Home = () => {
                         // downloade(
                         //   'https://www.youtube.com/watch?v=lTxn2BuqyzU'
                         // );
-                        downloade(data[2]);
+                        downloade(data[2], 'video');
                       }}
                     >
                       Download
