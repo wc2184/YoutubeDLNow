@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Grid,
+  Image,
   Input,
   Spacer,
   Spinner,
@@ -32,13 +33,15 @@ import {
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { CloseIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { CloseIcon, DownloadIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
+import download from 'downloadjs';
 
 const Home = () => {
   const [text, setText] = useState();
   const [user, setUser] = useState();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
   const auth = getAuth();
@@ -176,6 +179,12 @@ const Home = () => {
       console.error('Error adding document: ', e);
     }
   };
+  function youtube_parser(url) {
+    var regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return match && match[7].length == 11 ? match[7] : false;
+  }
   const deleteLink = async key => {
     const q = query(collection(db, 'songs'), where('key', '==', key));
     const deletingDoc = await getDocs(q);
@@ -219,6 +228,55 @@ const Home = () => {
   //   getTitle('https://www.youtube.com/watch?v=cxxnuofREcM');
 
   console.log(data);
+
+  const downloade = async link => {
+    // THE ISSUE WAS NAMING THIS FUNCTION DOWNLOAD SOMEHOW NODEJS CALLED IT WITH RESPONDSE.download lol
+    setLoading(link);
+
+    console.log(typeof link, 'b4');
+    // let newlink = `http://localhost:5000/download?link=` + link;
+    let newlink =
+      `https://youtubedownloadin.herokuapp.com/download?link=` + link;
+    console.log(newlink, 'mid');
+    const res = await fetch(newlink);
+    console.log(res.headers.forEach(console.log), 'headers');
+    console.log(res.headers.get('content-disposition'));
+    console.log(res, 'response');
+    toast({
+      title: 'We are generating your file.',
+      description: `Your video is downloading. Please wait one moment.`,
+      // description: `Your video ${
+      //   res.headers.get('content-disposition').split('"')[1]
+      // } is downloading. Please wait one moment.`,
+      status: 'info',
+      duration: 4000,
+      isClosable: true,
+    });
+
+    const blob = await res.blob();
+    console.log(blob);
+    download(blob, res.headers.get('content-disposition').split('"')[1]);
+    // download(blob);
+    setLoading(false);
+    toast({
+      title: 'Congratulations.',
+      description: `Your video has been downloaded successfully!.`,
+      // description: `Your video ${
+      //   res.headers.get('content-disposition').split('"')[1]
+      // } has been downloaded successfully!.`,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
+    console.log(link, 'after');
+    // if (link == undefined || link == "") return;
+    // window.open(
+    //   `https://youtubedownloadin.herokuapp.com/download?link=${link}`,
+    //   "_blank"
+    // );
+    // `https://youtubedownloadin.herokuapp.com/download?link=https://www.youtube.com/watch?v=iRH9Y97vQ48`
+  };
+
   return (
     <Box
       margin={{ base: '10vw 5vw 0vw 5vw', md: '10vw 20vw 0vw 20vw' }}
@@ -295,12 +353,29 @@ const Home = () => {
             {data.map(data => (
               <div key={data[3]}>
                 <Tr display="flex">
+                  <img
+                    fit
+                    style={{
+                      marginRight: '0',
+                      marginRight: '0',
+                      marginBottom: '5px',
+                      marginTop: '5px',
+                    }}
+                    height="97.5px"
+                    width="120px"
+                    src={`https://img.youtube.com/vi/${youtube_parser(
+                      data[2]
+                    )}/0.jpg
+                      `}
+                    alt="Youtube Link"
+                  />
+
                   <Td flex="1">
                     <div
                       style={{
                         marginTop: '10px',
                         maxHeight: '10vh',
-                        width: '30vw',
+                        width: '15vw',
                         wordBreak: 'break-all',
                         whiteSpace: 'normal',
                         wordWrap: 'normal',
@@ -309,8 +384,39 @@ const Home = () => {
                       {data[0]}
                     </div>
                   </Td>
-                  <Td style={{ paddingTop: '4px' }} flex="1">
+                  <Td
+                    style={{
+                      display: 'flex',
+                      paddingTop: '4px',
+                      width: '15vw',
+                    }}
+                    flex="1"
+                  >
                     <Button
+                      style={{
+                        display: 'block',
+                        padding: '8px',
+                        minWidth: '7vw',
+                      }}
+                      my="auto"
+                      leftIcon={<DownloadIcon />}
+                      link={data[2]}
+                      colorScheme="green"
+                      isLoading={loading == data[2]}
+                      // loadingText="Wait..."
+                      onClick={() => {
+                        console.log('clicked download');
+                        // downloade(
+                        //   'https://www.youtube.com/watch?v=lTxn2BuqyzU'
+                        // );
+                        downloade(data[2]);
+                      }}
+                    >
+                      Download
+                    </Button>
+                    <Button
+                      my="auto"
+                      style={{ marginLeft: '20px' }}
                       onClick={() => {
                         navigator.clipboard.writeText(data[2]);
                         toast({
@@ -336,7 +442,9 @@ const Home = () => {
                   </Td>
                   {/* fetch the title of the youtube video */}
                   <Td style={{ marginTop: '10px' }}>
-                    {data[1] ? data[1].toDate().toLocaleString() : null}
+                    {data[1]
+                      ? data[1].toDate().toISOString().split('T')[0]
+                      : null}
                   </Td>
                   <Td>
                     <Button
