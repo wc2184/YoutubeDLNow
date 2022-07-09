@@ -236,7 +236,7 @@ const Home = () => {
     console.log(typeof link, 'b4');
     // let newlink = `http://localhost:5000/download?link=` + link;
     let newlink =
-      `https://youtubedownloadin.herokuapp.com/download?link=` + link;
+      `https://youtubedownloadin.herokuapp.com/download/video?link=` + link;
     console.log(newlink, 'mid');
     const res = await fetch(newlink);
     console.log(res.headers.forEach(console.log), 'headers');
