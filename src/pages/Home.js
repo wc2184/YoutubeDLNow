@@ -144,13 +144,21 @@ const Home = () => {
     );
 
   async function paste(input) {
+    document.body.focus();
+
     const text = await navigator.clipboard.readText();
-    await setText(text);
+    // await setText(text);
+    document.body.focus();
+
     addLink(text);
+    document.body.focus();
+
     console.log('in here');
   }
   //firebase
   const addLink = async word => {
+    document.body.focus();
+
     console.log(text, 'text');
     console.log(auth.currentUser.email, 'auth');
     console.log(word, 'is there word?');
@@ -323,8 +331,13 @@ const Home = () => {
         style={{ display: 'block', marginTop: '20px', marginLeft: 'auto' }}
         onClick={async () => {
           console.log(db);
+          document.body.focus();
           paste();
+          document.body.focus();
+
           setTimeout(() => {
+            document.body.focus();
+
             toast({
               title: 'Pasted and Added to Phone.',
               description:
@@ -334,7 +347,10 @@ const Home = () => {
               duration: 2500,
               isClosable: true,
             });
+            document.body.focus();
+
             setText('');
+            document.body.focus();
           }, 500);
         }}
         colorScheme="teal"
