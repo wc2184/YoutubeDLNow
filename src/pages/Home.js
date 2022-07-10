@@ -338,6 +338,15 @@ const Home = () => {
           setTimeout(() => {
             document.body.focus();
 
+            toast({
+              title: 'Pasted and Added to Phone.',
+              description:
+                "We've pasted the link from your clipboard and it's now available on your phone.",
+              status: 'success',
+              position: 'top',
+              duration: 2500,
+              isClosable: true,
+            });
             document.body.focus();
 
             setText('');
