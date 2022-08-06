@@ -363,7 +363,7 @@ const Home = () => {
       <TableContainer>
         <Table size="sm" variant="simple">
           <TableCaption>
-            Enjoy a self-curated intentional and mindless youtube experience.
+            Enjoy a self-curated intentional and mindful youtube experience.
           </TableCaption>
           <TableCaption>
             Download videos to watch instead of letting the algorithm dictate
