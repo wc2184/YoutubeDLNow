@@ -257,7 +257,7 @@ const Home = () => {
         //   res.headers.get('content-disposition').split('"')[1]
         // } is downloading. Please wait one moment.`,
         status: 'info',
-        duration: 2000,
+        duration: 6000,
         isClosable: true,
       });
     }
