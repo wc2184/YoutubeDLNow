@@ -249,7 +249,7 @@ const Home = () => {
     let newlink =
       `https://youtubedownloadin.herokuapp.com/download/${type}?link=` + link;
     console.log(newlink, 'mid');
-    if (type == audio) {
+    if (type == 'audio') {
       toast({
         title: 'We are converting your audio file.',
         description: `Please wait a moment, audio tracks take a tad longer to convert.`,
