@@ -32,6 +32,7 @@ function App() {
     setTabIndex(tabs.indexOf(window.location.pathname));
   }, [window.location.pathname, tabs]);
 
+  if (window.location.pathname == '/') navigate('/home');
   console.log(window.location.pathname);
 
   const handleTabsChange = index => {
