@@ -249,13 +249,25 @@ const Home = () => {
     let newlink =
       `https://youtubedownloadin.herokuapp.com/download/${type}?link=` + link;
     console.log(newlink, 'mid');
+    if (type == audio) {
+      toast({
+        title: 'We are converting your audio file.',
+        description: `Please wait a moment, audio tracks take a tad longer to convert.`,
+        // description: `Your video ${
+        //   res.headers.get('content-disposition').split('"')[1]
+        // } is downloading. Please wait one moment.`,
+        status: 'info',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
     const res = await fetch(newlink);
     console.log(res.headers.forEach(console.log), 'headers');
     console.log(res.headers.get('content-disposition'));
     console.log(res, 'response');
     toast({
       title: 'We are generating your file.',
-      description: `Your video is downloading. Please wait one moment.`,
+      description: `Your ${type} is downloading. Please wait one moment.`,
       // description: `Your video ${
       //   res.headers.get('content-disposition').split('"')[1]
       // } is downloading. Please wait one moment.`,
@@ -312,7 +324,7 @@ const Home = () => {
               await addLink();
               toast({
                 title: 'Added the Youtube link to your account.',
-                description: 'It is now available on your phone.',
+                description: 'It is now stored to your account.',
                 status: 'success',
                 position: 'top',
                 duration: 2500,
@@ -339,9 +351,9 @@ const Home = () => {
             document.body.focus();
 
             toast({
-              title: 'Pasted and Added to Phone.',
+              title: 'Pasted and Added to Account.',
               description:
-                "We've pasted the link from your clipboard and it's now available on your phone.",
+                "We've pasted the link from your clipboard and it's now available on your account.",
               status: 'success',
               position: 'top',
               duration: 2500,
