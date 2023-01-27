@@ -5,4 +5,13 @@ html::-webkit-scrollbar {
 html {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  /* transform: scale(0.9);
+  transform-origin: 0 0; */
+  zoom: 90%;
+  -moz-transform: scale(3);
+  -moz-transform-origin: 0 0;
+}
+
+body {
+  /* // add prefixed versions too. */
 }
