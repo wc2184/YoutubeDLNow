@@ -39,7 +39,13 @@ function App() {
   };
 
   return (
-    <Grid display="flex" flexDir="column" minH="100vh" p={3}>
+    <Grid
+      className="scrollContainer"
+      display="flex"
+      flexDir="column"
+      minH="100vh"
+      p={3}
+    >
       {/* <Box textAlign="center" fontSize="xl"> */}
       {/* MUST USE DISPLAY FLEX U RETARD */} {/* one ele start */}
       {/* PREVENT THIS NAVBAR FROM GROWING with flex 0  */}
