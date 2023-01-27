@@ -42,15 +42,15 @@ const Auth = () => {
         // The signed-in user info.
         const user = result.user;
         toast({
-          title: 'Logged in. Automatically redirecting in 1 second...',
+          title: 'Logged in. Automatically redirecting in 2 seconds...',
           description: 'You are now signed in. ',
           status: 'success',
           duration: 1600,
           isClosable: true,
         });
         setTimeout(() => {
-          navigate(-2);
-        }, 1500);
+          navigate('/home');
+        }, 2000);
 
         // ...
       })
