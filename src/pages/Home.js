@@ -283,7 +283,7 @@ const Home = () => {
     setLoading(false);
     toast({
       title: 'Congratulations.',
-      description: `Your video has been downloaded successfully!.`,
+      description: `Your ${type} has been downloaded successfully!.`,
       // description: `Your video ${
       //   res.headers.get('content-disposition').split('"')[1]
       // } has been downloaded successfully!.`,
