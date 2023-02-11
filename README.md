@@ -1,9 +1,9 @@
 
 <h1 align="center">
-  Spotifree 
+  YoutubeDLNow 
   <br/>
-  <sub>Search and listen to any song- 100% free.</sub>
-  <br/> <sub><sub>A near identical Spotify clone</sub></sub>
+  <sub>Store and download any youtube video or audio, mp4 and mp3 files</sub>
+  <br/> <sub><sub>made w/ React, Firebase, Node.js</sub></sub>
   <p></p><a target="_blank" href="https://youtubedlnow.vercel.app/home">Live Link</a>
  
 </h1>
