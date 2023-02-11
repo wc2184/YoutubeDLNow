@@ -14,12 +14,14 @@ import {
   TabPanels,
   TabPanel,
   Divider,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
+import About from './pages/About';
 
 function App() {
   const tabs = ['/home', '/about', '/auth'];
@@ -37,6 +39,7 @@ function App() {
   const handleTabsChange = index => {
     setTabIndex(index);
   };
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Grid
@@ -62,7 +65,14 @@ function App() {
         >
           <TabList>
             <Tab onClick={() => navigate('/home')}>Home</Tab>
-            <Tab onClick={() => navigate('/about')}>About</Tab>
+            <Tab
+              onClick={() => {
+                // navigate('/about');
+                onOpen();
+              }}
+            >
+              About Me
+            </Tab>
             <Tab onClick={() => navigate('/auth')}>Auth</Tab>
           </TabList>
           {/* <TabPanels>
@@ -84,13 +94,14 @@ function App() {
       <Box flex="1 0 80%">
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route
+          {/* <Route
             path="/about"
-            element={<div>This page is useless. /home has everything.</div>}
-          />
+            element={<About isOpen={isOpen} onClose={onClose} />}
+          /> */}
           <Route path="/auth" element={<Auth />} />
         </Routes>
       </Box>
+      <About isOpen={isOpen} onClose={onClose} />
       {/* two ele end */}
       {/* </Box> */}
     </Grid>

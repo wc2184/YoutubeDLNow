@@ -34,17 +34,18 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CloseIcon, DownloadIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
 import download from 'downloadjs';
 
 const Home = () => {
   const [text, setText] = useState();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [data, setData] = useState([]);
   const ref = useRef('');
   const [loading, setLoading] = useState(false);
+  const [warningSent, setWarningSent] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
   const auth = getAuth();
@@ -58,26 +59,43 @@ const Home = () => {
         setUser(user.displayName);
         //   }, 300);
       } else {
-        console.log('NOBODY');
+        console.log(user, 'userK', auth.currentUser);
         //   setUser('');
         // signed out success
         //   setTimeout(() => {
         // setUser('');
         //   }, 300);
-        setTimeout(() => {
-          navigate('/auth');
-        }, 500);
+        //
+        // LOGIN
+        // setTimeout(() => {
+        //   navigate('/auth');
+        // }, 500);
+
+        // toast({
+        //   title: 'You can use this site, but you are not logged in.',
+        //   description:
+        //     'Any video links added will be shared with everyone who uses this site.',
+        //   status: 'warning',
+        //   position: 'bottom',
+        //   duration: 7500,
+        //   isClosable: true,
+        // });
       }
     });
   }, [auth, user]);
 
   useEffect(() => {
     if (user === undefined) return;
+    let anon = null;
+    console.log(user, 'USER HERE 2023');
+    if (user == null) {
+      anon = 'public';
+    }
     let tempdata = [];
     console.log('hello');
     let q = query(
       collection(db, 'songs'),
-      where('user', '==', auth.currentUser.email),
+      where('user', '==', anon || auth.currentUser.email),
       orderBy('time', 'desc')
     );
     const unsubscribe = onSnapshot(q, querySnapshot => {
@@ -130,18 +148,18 @@ const Home = () => {
     };
   }, [user]);
 
-  if (user === undefined)
-    return (
-      <div style={{ textAlign: 'center', marginTop: '30vh' }}>
-        <Spinner
-          size="xl"
-          color="red.500"
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-        />
-      </div>
-    );
+  // if (user === undefined)
+  //   return (
+  //     <div style={{ textAlign: 'center', marginTop: '30vh' }}>
+  //       <Spinner
+  //         size="xl"
+  //         color="red.500"
+  //         thickness="4px"
+  //         speed="0.65s"
+  //         emptyColor="gray.200"
+  //       />
+  //     </div>
+  //   );
 
   async function paste(input) {
     document.body.focus();
@@ -158,9 +176,23 @@ const Home = () => {
   //firebase
   const addLink = async word => {
     document.body.focus();
+    let anon = null;
+    if (user == null) {
+      anon = 'public';
+      if (!warningSent)
+        toast({
+          title: 'You can use this site, but you are not logged in.',
+          description:
+            'Any video links added will be shared with everyone who uses this site.',
+          status: 'warning',
+          position: 'bottom',
+          duration: 4000,
+          isClosable: true,
+        });
+      setWarningSent(true);
+    }
 
     console.log(text, 'text');
-    console.log(auth.currentUser.email, 'auth');
     console.log(word, 'is there word?');
     let dalink = word ? word : text;
     console.log(dalink, 'test');
@@ -182,7 +214,7 @@ const Home = () => {
         // link: text || word,
 
         time: serverTimestamp(),
-        user: auth.currentUser.email,
+        user: anon || auth.currentUser.email,
         // user: auth.user.toString(),
       });
       console.log('Document written with ID: ', docRef.id);
@@ -302,9 +334,21 @@ const Home = () => {
 
   return (
     <Box
-      margin={{ base: '10vw 5vw 0vw 5vw', md: '10vw 20vw 0vw 20vw' }}
+      margin={{ base: '1vw 5vw 0vw 5vw', md: '1vw 20vw 0vw 20vw' }}
       //   style={{ marginLeft: '20vw', marginRight: '20vw', marginTop: '10vh' }}
     >
+      {' '}
+      <a
+        style={{ display: 'block', width: '60%', margin: 'auto' }}
+        href="https://github.com/wc2184/YoutubeDLNow"
+        target="_blank"
+      >
+        <Image
+          mb={10}
+          width="100%"
+          src="https://socialify.git.ci/wc2184/YoutubeDLNow/image?logo=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F96%2Fnull%2Fdownloads.png&name=1&owner=1&pattern=Formal%20Invitation&theme=Dark"
+        ></Image>
+      </a>
       <Box w="100%" display="flex" justifyContent="space-between">
         <Input
           style={{ marginRight: '10px' }}
