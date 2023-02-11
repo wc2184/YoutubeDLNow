@@ -346,7 +346,7 @@ const Home = () => {
         <Image
           mb={10}
           width="100%"
-          src="https://socialify.git.ci/wc2184/YoutubeDLNow/image?logo=https%3A%2F%2Fimg.icons8.com%2Fcolor%2F96%2Fnull%2Fdownloads.png&name=1&owner=1&pattern=Formal%20Invitation&theme=Dark"
+          src="https://res.cloudinary.com/dkg7lxnj2/image/upload/v1676116464/YoutubeDLNow_kvtefz.png"
         ></Image>
       </a>
       <Box w="100%" display="flex" justifyContent="space-between">
