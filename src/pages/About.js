@@ -102,7 +102,7 @@ const About = ({ isOpen, onClose }) => {
               </Button>
               <Button
                 as="a"
-                href="https://github.com/wc2184"
+                href="https://williamchan.surge.sh/"
                 target="_blank"
                 _hover={{
                   cursor: 'pointer',
