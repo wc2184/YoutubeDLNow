@@ -12,7 +12,7 @@
   <img src="https://res.cloudinary.com/dkg7lxnj2/image/upload/v1676116464/YoutubeDLNow_kvtefz.png" />
 </p>
 <p align="center">
-  <img src="https://res.cloudinary.com/dkg7lxnj2/image/upload/v1674802505/test_vrduhd.gif" />
+  <img src="https://res.cloudinary.com/dkg7lxnj2/image/upload/v1676119209/BTsMGWo_lsv5rk.png" />
 </p>
 <h1 align="center">
 <a href="https://youtubedlnow.vercel.app/home">Live Link</a>
