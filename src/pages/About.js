@@ -15,6 +15,7 @@ import {
 import { AiFillGithub } from 'react-icons/ai';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { RiComputerLine } from "react-icons/ri";
 
 const About = ({ isOpen, onClose }) => {
   const [isLessThan1372] = useMediaQuery('(max-width: 1372px)');
@@ -110,7 +111,7 @@ const About = ({ isOpen, onClose }) => {
                 }}
                 colorScheme="yellow"
                 fontSize={isLessThan1372 ? '14px' : '1.15rem'}
-                leftIcon={<AiFillGithub />}
+                leftIcon={<RiComputerLine />}
                 flex={1}
               >
                 <Text mt="3px">My Website</Text>
