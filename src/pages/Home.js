@@ -49,17 +49,16 @@ const Home = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const auth = getAuth();
-  console.log(auth.currentUser ? auth.currentUser.displayName : null);
+
   useEffect(() => {
     onAuthStateChanged(auth, user => {
       if (user) {
         //signed in success
-        console.log(user.displayName);
+
         //   setTimeout(() => {
         setUser(user.displayName);
         //   }, 300);
       } else {
-        console.log(user, 'userK', auth.currentUser);
         //   setUser('');
         // signed out success
         //   setTimeout(() => {
@@ -70,7 +69,6 @@ const Home = () => {
         // setTimeout(() => {
         //   navigate('/auth');
         // }, 500);
-
         // toast({
         //   title: 'You can use this site, but you are not logged in.',
         //   description:
@@ -87,12 +85,12 @@ const Home = () => {
   useEffect(() => {
     if (user === undefined) return;
     let anon = null;
-    console.log(user, 'USER HERE 2023');
+
     if (user == null) {
       anon = 'public';
     }
     let tempdata = [];
-    console.log('hello');
+
     let q = query(
       collection(db, 'songs'),
       where('user', '==', anon || auth.currentUser.email),
@@ -100,17 +98,15 @@ const Home = () => {
     );
     const unsubscribe = onSnapshot(q, querySnapshot => {
       const eles = [];
-      //   console.log(querySnapshot);
+      //
       //   for (const doc of querySnapshot) {
-      //     console.log(doc, 'is a doc');
+      //
 
       //     eles.push([doc.data().link, doc.data().time]);
       //   }
       //   setData(eles);
 
       querySnapshot.forEach(doc => {
-        console.log(doc, 'is a doc');
-
         eles.push([
           doc.data().link,
           doc.data().time,
@@ -118,28 +114,28 @@ const Home = () => {
           doc.data().key,
         ]);
       });
-      console.log('Current cities in CA: ', eles.join(', '));
+
       setData(eles);
       //   tempdata = eles;
-      //   console.log(eles);
+      //
       //   let newarr = [];
       //   eles.forEach(async array => {
       //     // let link = 'https://www.youtube.com/watch?v=2v3R2c1fG9c';
-      //     console.log(array);
+      //
       //     let link = array[0];
-      //     console.log(link, 'link here');
+      //
       //     let newlink = `https://noembed.com/embed?url=${link}`;
       //     let title = "didn't";
       //     await fetch(newlink)
       //       .then(res => res.json())
       //       .then(data => {
-      //         console.log(data.title);
+      //
       //         if (data.error) title = 'None';
       //         else title = data.title;
       //       });
       //     // newarr.push([array[0]]);
       //     newarr.push([title, array[1]]);
-      //     console.log(newarr, 'newarr updated');
+      //
       //     setData(newarr);
       //   });
     });
@@ -170,8 +166,6 @@ const Home = () => {
 
     addLink(text);
     document.body.focus();
-
-    console.log('in here');
   }
   //firebase
   const addLink = async word => {
@@ -192,17 +186,14 @@ const Home = () => {
       setWarningSent(true);
     }
 
-    console.log(text, 'text');
-    console.log(word, 'is there word?');
     let dalink = word ? word : text;
-    console.log(dalink, 'test');
+
     let newlink = `https://noembed.com/embed?url=${dalink}`;
-    console.log(newlink, 'new link');
+
     let title = "didn't";
     await fetch(newlink)
       .then(res => res.json())
       .then(data => {
-        console.log(data.title);
         if (data.error) title = 'Not a valid Youtube video.';
         else title = data.title;
       });
@@ -217,7 +208,6 @@ const Home = () => {
         user: anon || auth.currentUser.email,
         // user: auth.user.toString(),
       });
-      console.log('Document written with ID: ', docRef.id);
     } catch (e) {
       console.error('Error adding document: ', e);
     }
@@ -231,19 +221,16 @@ const Home = () => {
   const deleteLink = async key => {
     const q = query(collection(db, 'songs'), where('key', '==', key));
     const deletingDoc = await getDocs(q);
-    console.log(deletingDoc, 'found?');
+
     deletingDoc.forEach(async ele => {
       //   deleteDoc(doc);
-      console.log(ele.id);
-      await deleteDoc(doc(db, 'songs', ele.id));
 
-      console.log('deleted');
+      await deleteDoc(doc(db, 'songs', ele.id));
     });
   };
 
   const enter = async () => {
     if (!(text == undefined || text == '')) {
-      console.log(text);
       await addLink();
       toast({
         title: 'Added the Youtube link to your account.',
@@ -263,24 +250,21 @@ const Home = () => {
   //     fetch(newlink)
   //       .then(res => res.json())
   //       .then(data => {
-  //         console.log(data.title);
+  //
   //         title = data.title;
   //       });
   //     return title;
   //   };
   //   getTitle('https://www.youtube.com/watch?v=cxxnuofREcM');
 
-  console.log(data);
-
   const downloade = async (link, type) => {
     // THE ISSUE WAS NAMING THIS FUNCTION DOWNLOAD SOMEHOW NODEJS CALLED IT WITH RESPONDSE.download lol
     setLoading(link);
 
-    console.log(typeof link, 'b4');
     // let newlink = `http://localhost:5000/download?link=` + link;
     let newlink =
       `https://youtubedownloadin.herokuapp.com/download/${type}?link=` + link;
-    console.log(newlink, 'mid');
+
     if (type == 'audio') {
       toast({
         title: 'We are converting your audio file.',
@@ -294,9 +278,7 @@ const Home = () => {
       });
     }
     const res = await fetch(newlink);
-    console.log(res.headers.forEach(console.log), 'headers');
-    console.log(res.headers.get('content-disposition'));
-    console.log(res, 'response');
+
     toast({
       title: 'We are generating your file.',
       description: `Your ${type} is downloading. Please wait one moment.`,
@@ -309,7 +291,7 @@ const Home = () => {
     });
 
     const blob = await res.blob();
-    console.log(blob);
+
     download(blob, res.headers.get('content-disposition').split('"')[1]);
     // download(blob);
     setLoading(false);
@@ -323,7 +305,7 @@ const Home = () => {
       duration: 5000,
       isClosable: true,
     });
-    console.log(link, 'after');
+
     // if (link == undefined || link == "") return;
     // window.open(
     //   `https://youtubedownloadin.herokuapp.com/download?link=${link}`,
@@ -364,7 +346,6 @@ const Home = () => {
         <Button
           onClick={async () => {
             if (!(text == undefined || text == '')) {
-              console.log(text);
               await addLink();
               toast({
                 title: 'Added the Youtube link to your account.',
@@ -386,7 +367,6 @@ const Home = () => {
       <Button
         style={{ display: 'block', marginTop: '20px', marginLeft: 'auto' }}
         onClick={async () => {
-          console.log(db);
           document.body.focus();
           paste();
           document.body.focus();
@@ -497,7 +477,6 @@ const Home = () => {
                       isLoading={loading == data[2]}
                       // loadingText="Wait..."
                       onClick={() => {
-                        console.log('clicked download');
                         // downloade(
                         //   'https://www.youtube.com/watch?v=lTxn2BuqyzU'
                         // );

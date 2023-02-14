@@ -17,12 +17,11 @@ const Auth = () => {
   const toast = useToast();
   const [user, setUser] = useState();
   const auth = getAuth();
-  console.log(auth);
-  console.log(user, 'USER');
+
   onAuthStateChanged(auth, user => {
     if (user) {
       //signed in success
-      console.log(user.displayName);
+
       setTimeout(() => {
         setUser(user.displayName);
       }, 300);

@@ -33,7 +33,6 @@ function App() {
   useEffect(() => {
     setTabIndex(tabs.indexOf(window.location.pathname));
     if (window.location.pathname == '/') navigate('/home');
-    console.log(window.location.pathname);
   }, [window.location.pathname, tabs]);
 
   const handleTabsChange = index => {
