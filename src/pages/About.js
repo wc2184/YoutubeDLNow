@@ -15,7 +15,7 @@ import {
 import { AiFillGithub } from 'react-icons/ai';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { RiComputerLine } from "react-icons/ri";
+import { RiComputerLine } from 'react-icons/ri';
 
 const About = ({ isOpen, onClose }) => {
   const [isLessThan1372] = useMediaQuery('(max-width: 1372px)');
@@ -57,7 +57,7 @@ const About = ({ isOpen, onClose }) => {
               Link to the backend repo:{' '}
               <a
                 target="_blank"
-                href="https://github.com/wc2184/YoutubeDLNowBackend/blob/master/index.js"
+                href="https://github.com/wc2184/YoutubeDLNowBackend/blob/main/index.js"
                 style={{ textDecoration: 'underline' }}
               >
                 https://github.com/wc2184/YoutubeDLNowBackend
