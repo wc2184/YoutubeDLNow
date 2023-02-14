@@ -84,7 +84,7 @@ const About = ({ isOpen, onClose }) => {
                 leftIcon={<AiFillGithub />}
                 flex={1}
               >
-                <Text mt="3px">My Github</Text>
+                <Text mb="2px">My Github</Text>
               </Button>
               <Button
                 as="a"
@@ -99,7 +99,7 @@ const About = ({ isOpen, onClose }) => {
                 leftIcon={<AiFillLinkedin />}
                 flex={1.1}
               >
-                <Text mt="3px">My LinkedIn</Text>
+                <Text mb="2px">My LinkedIn</Text>
               </Button>
               <Button
                 as="a"
@@ -114,7 +114,7 @@ const About = ({ isOpen, onClose }) => {
                 leftIcon={<RiComputerLine />}
                 flex={1}
               >
-                <Text mt="3px">My Website</Text>
+                <Text mb="2px">My Website</Text>
               </Button>
             </Box>
             <ModalFooter>
