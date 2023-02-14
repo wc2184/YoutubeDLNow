@@ -21,7 +21,7 @@
 <br/>
 
 <h1 align="center">
-<a href="https://github.com/wc2184/YoutubeDLNowBackend/blob/master/index.js">Backend Repo</a>
+<a href="https://github.com/wc2184/YoutubeDLNowBackend/blob/main/index.js">Backend Repo</a>
 <p></p>
 </h1>
 
