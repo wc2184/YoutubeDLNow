@@ -468,7 +468,7 @@ const Home = () => {
                       style={{
                         display: 'block',
                         padding: '8px',
-                        minWidth: '7vw',
+                        minWidth: '8vw',
                       }}
                       my="auto"
                       leftIcon={<DownloadIcon />}
