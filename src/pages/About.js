@@ -42,8 +42,10 @@ const About = ({ isOpen, onClose }) => {
             <ModalHeader fontSize="6xl">Hi, I'm William 👋</ModalHeader>
             <ModalCloseButton />
             <ModalBody mb={5} fontSize={isLessThan1372 ? '1.25rem' : '1.5rem'}>
-              I created this website, Spotifree. <br></br> <br></br> The entire
-              site was built with{' '}
+              {/* I created this website, YoutubeDLNow. */}
+              Download any youtube video as an mp4 or an audio file as an mp3!{' '}
+              <i>(Videos under 5 minutes download fastest.)</i>
+              <br></br> <br></br> The entire site was built with{' '}
               <span style={{ color: 'teal', fontWeight: 'bold' }}>React</span>{' '}
               and{' '}
               <span style={{ color: '#1da1f2', fontWeight: 'bold' }}>
@@ -63,10 +65,10 @@ const About = ({ isOpen, onClose }) => {
                 https://github.com/wc2184/YoutubeDLNowBackend
               </a>{' '}
               <br></br>
-              <br></br> <br></br>{' '}
+              <br></br>{' '}
               <span style={{ fontWeight: 'bold' }}>
-                P.S. I'm currently looking for
-                work, so if you loved this site- feel free to reach out to me!
+                P.S. I'm currently looking for an work/internship, so if you
+                loved this site- feel free to reach out to me!
               </span>
             </ModalBody>
             <Box m="0 40px" maxW="100%" display="flex" gap="30px">
